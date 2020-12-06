@@ -18,12 +18,16 @@ export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.El
     const displayPopup = (key: string): void => {
         setJsx(popups[key]);
         setOpen(true);
+    };
+    const closePopup = (): void => {
+        setOpen(false);
     }
 
     return (
         <PopupContext.Provider value={{
             addPopup,
             displayPopup,
+            closePopup,
         }}>
             {children}
             {open && jsx}
