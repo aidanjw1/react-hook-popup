@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
 interface IPopupContext {
-    addPopup: (key: string, jsx: JSX.Element) => void;
-    displayPopup: (key: string) => void;
+    addPopup: (key: string, popupRenderer: PopupRenderer) => void;
+    displayPopup: (key: string, message: string) => void;
     closePopup: () => void;
 }
 

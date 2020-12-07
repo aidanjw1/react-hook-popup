@@ -3,20 +3,22 @@ import { PopupContext } from './PopupContext';
 
 export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.Element => {
     const [open, setOpen] = React.useState(false);
-    const [jsx, setJsx] = React.useState<JSX.Element>();
+    const [renderer, setRenderer] = React.useState<PopupRenderer>();
+    const [message, setMessage] = React.useState('');
 
-    const [popups, setPopups] = React.useState<Record<string, JSX.Element>>({});
-    const addPopup = (key: string, jsx: JSX.Element): void => {
+    const [popups, setPopups] = React.useState<Record<string, PopupRenderer>>({});
+    const addPopup = (key: string, popupRenderer: PopupRenderer): void => {
         if (popups[key]) {
             return;
         }
         setPopups({
             ...popups,
-            [key]: jsx,
+            [key]: popupRenderer,
         });
     };
-    const displayPopup = (key: string): void => {
-        setJsx(popups[key]);
+    const displayPopup = (key: string, message: string): void => {
+        setMessage(message);
+        setRenderer(() => popups[key]);
         setOpen(true);
     };
     const closePopup = (): void => {
@@ -30,7 +32,7 @@ export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.El
             closePopup,
         }}>
             {children}
-            {open && jsx}
+            {open && renderer?.({ message, handleClose: closePopup })}
         </PopupContext.Provider>
     )
 }
