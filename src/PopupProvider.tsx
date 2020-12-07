@@ -1,7 +1,7 @@
 import React from 'react';
 import { PopupContext } from './PopupContext';
 
-export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.Element => {
+export const PopupProvider = ({ children }: React.PropsWithChildren<null>): JSX.Element => {
     const [open, setOpen] = React.useState(false);
     const [renderer, setRenderer] = React.useState<PopupRenderer>();
     const [message, setMessage] = React.useState('');
@@ -20,10 +20,10 @@ export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.El
         if (!popups[key]) {
             return;
         }
-        const updatedPopups = {...popups};
+        const updatedPopups = { ...popups };
         delete updatedPopups[key];
         setPopups(updatedPopups);
-    }
+    };
     const displayPopup = (key: string, message: string): void => {
         setMessage(message);
         setRenderer(() => popups[key]);
@@ -31,17 +31,19 @@ export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.El
     };
     const closePopup = (): void => {
         setOpen(false);
-    }
+    };
 
     return (
-        <PopupContext.Provider value={{
-            addPopup,
-            removePopup,
-            displayPopup,
-            closePopup,
-        }}>
+        <PopupContext.Provider
+            value={{
+                addPopup,
+                removePopup,
+                displayPopup,
+                closePopup,
+            }}
+        >
             {children}
             {open && renderer?.({ message, handleClose: closePopup })}
         </PopupContext.Provider>
-    )
-}
+    );
+};

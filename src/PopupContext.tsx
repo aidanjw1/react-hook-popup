@@ -8,8 +8,16 @@ interface IPopupContext {
 }
 
 export const PopupContext = createContext<IPopupContext>({
-    addPopup: () => { throw new Error('Something has gone wrong') },
-    removePopup: () => { throw new Error('Something has gone wrong') },
-    displayPopup: () => { throw new Error('Something has gone wrong') },
-    closePopup: () => { throw new Error('Something has gone wrong') },
+    addPopup: () => {
+        throw new Error('Something has gone wrong');
+    },
+    removePopup: () => {
+        throw new Error('Something has gone wrong');
+    },
+    displayPopup: () => {
+        throw new Error('Something has gone wrong');
+    },
+    closePopup: () => {
+        throw new Error('Something has gone wrong');
+    },
 });
