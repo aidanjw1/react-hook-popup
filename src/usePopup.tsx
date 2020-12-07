@@ -3,11 +3,11 @@ import { PopupContext } from "./PopupContext";
 
 
 export function usePopup(key: string, popupRenderer: PopupRenderer) {
-    const { addPopup, displayPopup, closePopup } = useContext(PopupContext);
+    const { addPopup, removePopup, displayPopup, closePopup } = useContext(PopupContext);
     useEffect(() => {
         addPopup(key, popupRenderer);
         return () => {
-            // TODO: Unregister popup
+            removePopup(key);
         };
     }, []);
     return [

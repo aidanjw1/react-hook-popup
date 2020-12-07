@@ -16,6 +16,14 @@ export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.El
             [key]: popupRenderer,
         });
     };
+    const removePopup = (key: string) => {
+        if (!popups[key]) {
+            return;
+        }
+        const updatedPopups = {...popups};
+        delete updatedPopups[key];
+        setPopups(updatedPopups);
+    }
     const displayPopup = (key: string, message: string): void => {
         setMessage(message);
         setRenderer(() => popups[key]);
@@ -28,6 +36,7 @@ export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.El
     return (
         <PopupContext.Provider value={{
             addPopup,
+            removePopup,
             displayPopup,
             closePopup,
         }}>
