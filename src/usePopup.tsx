@@ -1,10 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { PopupContext } from "./PopupContext";
 
 
 export function usePopup(key: string, popupRenderer: PopupRenderer) {
     const { addPopup, displayPopup, closePopup } = useContext(PopupContext);
-    addPopup(key, popupRenderer);
+    useEffect(() => {
+        addPopup(key, popupRenderer);
+        return () => {
+            // TODO: Unregister popup
+        };
+    }, []);
     return [
         (message: string) => {
             displayPopup(key, message);
