@@ -13,6 +13,8 @@ export function usePopup(key: string, popupRenderer: PopupRenderer) {
         (message: string) => {
             displayPopup(key, message);
         },
-        closePopup,
+        () => {
+            closePopup(key);
+        },
     ];
 }
