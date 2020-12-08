@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "rebuild": "npm install && npm run build && rm -r node_modules",
+    "build:local-install": "npm run build && rm -r node_modules",
     "test": "jest"
   },
   "author": "Aidan White",
