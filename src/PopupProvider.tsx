@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PopupContext } from './PopupContext';
 
-export const PopupProvider = ({ children }: React.PropsWithChildren<null>): JSX.Element => {
-    const [open, setOpen] = React.useState(false);
-    const [renderer, setRenderer] = React.useState<PopupRenderer>();
-    const [message, setMessage] = React.useState('');
+export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.Element => {
+    const [open, setOpen] = useState(false);
+    const [renderer, setRenderer] = useState<PopupRenderer>();
+    const [message, setMessage] = useState('');
 
-    const [popups, setPopups] = React.useState<Record<string, PopupRenderer>>({});
+    const [popups, setPopups] = useState<Record<string, PopupRenderer>>({});
     const addPopup = (key: string, popupRenderer: PopupRenderer): void => {
         if (popups[key]) {
             return;
