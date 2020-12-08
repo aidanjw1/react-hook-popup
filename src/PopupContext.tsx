@@ -4,7 +4,7 @@ interface IPopupContext {
     addPopup: (key: string, popupRenderer: PopupRenderer) => void;
     removePopup: (key: string) => void;
     displayPopup: (key: string, message: string) => void;
-    closePopup: () => void;
+    closePopup: (key: string) => void;
 }
 
 export const PopupContext = createContext<IPopupContext>({

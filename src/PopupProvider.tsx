@@ -6,35 +6,48 @@ interface Props {
 }
 
 export const PopupProvider = ({ children }: Props): JSX.Element => {
-    const [open, setOpen] = useState(false);
-    const [renderer, setRenderer] = useState<PopupRenderer>();
-    const [message, setMessage] = useState('');
+    const [popups, setPopups] = useState<Record<string, Popup>>({});
 
-    const [popups, setPopups] = useState<Record<string, PopupRenderer>>({});
     const addPopup = (key: string, popupRenderer: PopupRenderer): void => {
         if (popups[key]) {
             return;
         }
-        setPopups({
-            ...popups,
-            [key]: popupRenderer,
-        });
+        setPopups((previous) => ({
+            ...previous,
+            [key]: {
+                renderer: popupRenderer,
+                open: false,
+            },
+        }));
     };
     const removePopup = (key: string) => {
         if (!popups[key]) {
             return;
         }
-        const updatedPopups = { ...popups };
-        delete updatedPopups[key];
-        setPopups(updatedPopups);
+        setPopups((previous) => {
+            const updatedPopups = { ...previous };
+            delete updatedPopups[key];
+            return updatedPopups;
+        })
     };
     const displayPopup = (key: string, message: string): void => {
-        setMessage(message);
-        setRenderer(() => popups[key]);
-        setOpen(true);
+        setPopups({
+            ...popups,
+            [key]: {
+                ...popups[key],
+                open: true,
+                message,
+            },
+        });
     };
-    const closePopup = (): void => {
-        setOpen(false);
+    const closePopup = (key: string): void => {
+        setPopups((previous) => ({
+            ...previous,
+            [key]: {
+                ...popups[key],
+                open: false,
+            },
+        }));
     };
 
     return (
@@ -47,7 +60,15 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
             }}
         >
             {children}
-            {open && renderer?.({ message, handleClose: closePopup })}
+            {Object.entries(popups).map(([key, popup]) => {
+                return (
+                    popup.open &&
+                    popup.renderer?.({
+                        message: popup.message,
+                        handleClose: () => closePopup(key),
+                    })
+                );
+            })}
         </PopupContext.Provider>
     );
 };

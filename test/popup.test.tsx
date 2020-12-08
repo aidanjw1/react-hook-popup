@@ -34,4 +34,14 @@ describe('Popups', () => {
         wrapper.find('.close').simulate('click');
         expect(wrapper.contains('popup')).toBeFalsy();
     });
+
+    it('Should display multiple popups', () => {
+        const wrapper = mountWithContext(<TestComponent />);
+
+        wrapper.find('.show').simulate('click');
+        wrapper.find('.show-2').simulate('click');
+
+        expect(wrapper.contains('popup')).toBeTruthy();
+        expect(wrapper.contains('popup 2')).toBeTruthy();
+    });
 });

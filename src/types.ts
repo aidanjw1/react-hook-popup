@@ -1,6 +1,12 @@
 declare global {
+
+    interface Popup {
+        open: boolean;
+        renderer: PopupRenderer;
+        message?: string;
+    }
     interface PopupRenderProps {
-        message: string;
+        message?: string;
         handleClose: () => void;
     }
 
