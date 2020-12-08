@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { PopupContext } from './PopupContext';
 
-export const PopupProvider = ({ children }: React.PropsWithChildren<{}>): JSX.Element => {
+interface Props {
+    children?: React.ReactNode;
+}
+
+export const PopupProvider = ({ children }: Props): JSX.Element => {
     const [open, setOpen] = useState(false);
     const [renderer, setRenderer] = useState<PopupRenderer>();
     const [message, setMessage] = useState('');
