@@ -63,10 +63,13 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
             {Object.entries(popups).map(([key, popup]) => {
                 return (
                     popup.open &&
-                    popup.renderer?.({
-                        message: popup.message,
-                        handleClose: () => closePopup(key),
-                    })
+                    React.cloneElement(
+                        popup.renderer?.({
+                            message: popup.message,
+                            handleClose: () => closePopup(key),
+                        }), 
+                        { key }
+                    )
                 );
             })}
         </PopupContext.Provider>
