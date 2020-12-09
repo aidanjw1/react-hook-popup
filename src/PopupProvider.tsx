@@ -9,20 +9,22 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
     const [popups, setPopups] = useState<Record<string, Popup>>({});
 
     const addPopup = (key: string, popupRenderer: PopupRenderer): void => {
-        if (popups[key]) {
-            return;
-        }
-        setPopups((previous) => ({
-            ...previous,
-            [key]: {
-                renderer: popupRenderer,
-                open: false,
-            },
-        }));
+        setPopups((previous) => {
+            if (previous[key]) {
+                throw Error(`Alerts were created with duplicate key: '${key}'`);
+            }
+            return {
+                ...previous,
+                [key]: {
+                    renderer: popupRenderer,
+                    open: false,
+                }
+            };
+        });
     };
     const removePopup = (key: string) => {
         if (!popups[key]) {
-            return;
+            throw Error(`Attempted to remove non-existing alert with key: ${key}`);
         }
         setPopups((previous) => {
             const updatedPopups = { ...previous };
