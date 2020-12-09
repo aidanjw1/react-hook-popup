@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
+import { usePopup } from '../src';
 import { mountWithContext, TestComponent } from './utils';
 
 describe('Popups', () => {
@@ -43,5 +46,27 @@ describe('Popups', () => {
 
         expect(wrapper.contains('popup')).toBeTruthy();
         expect(wrapper.contains('popup 2')).toBeTruthy();
+    });
+
+    it('Should throw an error when a key is used twice', () => {
+        const Component = () => {
+            usePopup('popup', () => <span>Popup</span>);
+            usePopup('popup', () => <span>Popup</span>);
+            return <></>;
+        };
+
+        jest.spyOn(console, 'error');
+        // @ts-ignore
+        console.error.mockImplementation(() => { });
+        
+        expect.assertions(1);
+        try {
+            mountWithContext(<Component />);
+        } catch (e) {
+            expect(e).toBeTruthy();
+        }
+
+        // @ts-ignore
+        console.error.mockRestore();
     });
 });

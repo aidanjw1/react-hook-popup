@@ -18,10 +18,10 @@ export const TestComponent = (): JSX.Element => {
     return (
         <>
             <button className="show" onClick={() => showPopup1('popup')}>Show</button>
-            <button className="hide" onClick={() => hidePopup1('popup')}>Hide</button>
+            <button className="hide" onClick={() => hidePopup1()}>Hide</button>
 
             <button className="show-2" onClick={() => showPopup2('popup 2')}>Show</button>
-            <button className="hide-2" onClick={() => hidePopup2('popup-2')}>Hide</button>
+            <button className="hide-2" onClick={() => hidePopup2()}>Hide</button>
         </>
     );
 }
