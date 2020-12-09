@@ -1,7 +1,7 @@
 {
   "name": "react-hook-popup",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Easily popups like alerts and modals in React with a single hook",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,6 +9,7 @@
     "build:local-install": "npm run build && rm -r node_modules",
     "test": "jest"
   },
+  "types": "dist/index.d.ts",
   "author": "Aidan White",
   "license": "ISC",
   "dependencies": {},
