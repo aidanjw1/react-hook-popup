@@ -11,36 +11,33 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
     const addPopup = (key: string, popupRenderer: PopupRenderer): void => {
         setPopups((previous) => {
             if (previous[key]) {
-                throw Error(`Alerts were created with duplicate key: '${key}'`);
+                return previous;
             }
             return {
                 ...previous,
                 [key]: {
                     renderer: popupRenderer,
                     open: false,
-                }
+                },
             };
         });
     };
     const removePopup = (key: string) => {
-        if (!popups[key]) {
-            throw Error(`Attempted to remove non-existing alert with key: ${key}`);
-        }
         setPopups((previous) => {
             const updatedPopups = { ...previous };
             delete updatedPopups[key];
             return updatedPopups;
-        })
+        });
     };
     const displayPopup = (key: string, message: string): void => {
-        setPopups({
-            ...popups,
+        setPopups((previous) => ({
+            ...previous,
             [key]: {
                 ...popups[key],
                 open: true,
                 message,
             },
-        });
+        }));
     };
     const closePopup = (key: string): void => {
         setPopups((previous) => ({
@@ -69,8 +66,8 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
                         popup.renderer?.({
                             message: popup.message,
                             handleClose: () => closePopup(key),
-                        }), 
-                        { key }
+                        }),
+                        { key },
                     )
                 );
             })}

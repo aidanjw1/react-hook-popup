@@ -1,10 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { PopupContext } from './PopupContext';
 
-type ReturnType = [
-    (message: string) => void,
-    () => void,
-]
+type ReturnType = [(message: string) => void, () => void];
 
 export function usePopup(key: string, popupRenderer: PopupRenderer): ReturnType {
     const { addPopup, removePopup, displayPopup, closePopup } = useContext(PopupContext);
