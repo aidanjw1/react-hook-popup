@@ -54,7 +54,7 @@ export function setPopupClosed(popups: Record<string, Popup>, key: string): Reco
 export function setPopupMessage(
     popups: Record<string, Popup>,
     key: string,
-    message: string,
+    message?: string,
 ): Record<string, Popup> {
     enforceExistingPopup(popups, key);
     return {

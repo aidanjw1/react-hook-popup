@@ -3,7 +3,7 @@ import { createContext } from 'react';
 interface IPopupContext {
     registerPopup: (key: string, popupRenderer: PopupRenderer) => void;
     unRegisterPopup: (key: string) => void;
-    displayPopup: (key: string, message: string) => void;
+    displayPopup: (key: string, message?: string) => void;
     closePopup: (key: string) => void;
 }
 

@@ -21,7 +21,7 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
     const unRegisterPopup = (key: string) => {
         setPopups((previous) => removePopup(previous, key));
     };
-    const displayPopup = (key: string, message: string): void => {
+    const displayPopup = (key: string, message?: string): void => {
         setPopups((previous) => setPopupOpen(previous, key));
         setPopups((previous) => setPopupMessage(previous, key, message));
     };
