@@ -1,18 +1,18 @@
 import { useContext, useEffect } from 'react';
 import { PopupContext } from './PopupContext';
 
-type ReturnType = [(message: string) => void, () => void];
+type ReturnType = [(message?: string) => void, () => void];
 
 export function usePopup(key: string, popupRenderer: PopupRenderer): ReturnType {
-    const { addPopup, removePopup, displayPopup, closePopup } = useContext(PopupContext);
+    const { registerPopup, unRegisterPopup, displayPopup, closePopup } = useContext(PopupContext);
     useEffect(() => {
-        addPopup(key, popupRenderer);
+        registerPopup(key, popupRenderer);
         return () => {
-            removePopup(key);
+            unRegisterPopup(key);
         };
     }, []);
     return [
-        (message: string) => {
+        (message?: string) => {
             displayPopup(key, message);
         },
         () => {

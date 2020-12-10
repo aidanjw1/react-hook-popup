@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from "enzyme";
 import { PopupProvider, usePopup } from "../src";
+import '../src/utils/types'; 
 
 export class TestComponentFactory {
     public static getTestComponent(): React.ComponentType {
@@ -26,6 +27,26 @@ export class TestComponentFactory {
                     <button className="hide-2" onClick={() => hidePopup2()}>Hide</button>
                 </>
             );
+        };
+    }
+}
+
+interface GetPopupOptions {
+    open?: boolean;
+    renderer?: PopupRenderer;
+    message?: string;
+}
+
+export class TestPopupFactory {
+    public static getSimplePopupRenderer(): PopupRenderer {
+        return () => <span>Hello world</span>;
+    }
+
+    public static getPopup({ open, renderer, message }: GetPopupOptions = {}): Popup {
+        return {
+            open: open || false,
+            renderer: renderer || this.getSimplePopupRenderer(),
+            message,
         };
     }
 }

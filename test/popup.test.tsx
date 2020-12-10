@@ -83,4 +83,20 @@ describe('Popups', () => {
         wrapper.find('.click-me').simulate('click');
         expect(wrapper.contains(BAD_MESSAGE)).toBeFalsy();
     });
+
+    it('Should allow for calling the show method without passing a message', () => {
+        const TestComponent = () => {
+            const [show] = usePopup('popup', () => (
+                <span>Hello</span>
+            ));
+            return (
+                <button className="click-me" onClick={() => show()}></button>
+            );
+        };
+        const wrapper = mountWithContext(
+            <TestComponent />
+        );
+        wrapper.find('.click-me').simulate('click');
+        expect(wrapper.contains('Hello')).toBeTruthy();
+    })
 });
