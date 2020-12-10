@@ -1,7 +1,7 @@
 {
   "name": "react-hook-popup",
-  "version": "0.0.1",
-  "description": "Easily popups like alerts and modals in React with a single hook",
+  "version": "0.0.3",
+  "description": "Easily manage popups like alerts and modals in React with a single hook",
   "homepage": "https://github.com/aidanjw1/react-hook-popup#readme",
   "repository": "github:aidanjw1/react-hook-popup",
   "main": "dist/index.js",

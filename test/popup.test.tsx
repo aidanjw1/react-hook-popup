@@ -2,9 +2,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { usePopup } from '../src';
-import { mountWithContext, TestComponent } from './utils';
+import { mountWithContext, TestComponentFactory } from './utils';
+
+let TestComponent: React.ComponentType;
 
 describe('Popups', () => {
+    beforeAll(() => {
+        TestComponent = TestComponentFactory.getTestComponent();
+    });
+
     it('Should not render the popup initially', () => {
         const wrapper = mountWithContext(<TestComponent />);
 
@@ -48,25 +54,33 @@ describe('Popups', () => {
         expect(wrapper.contains('popup 2')).toBeTruthy();
     });
 
-    it('Should throw an error when a key is used twice', () => {
-        const Component = () => {
-            usePopup('popup', () => <span>Popup</span>);
-            usePopup('popup', () => <span>Popup</span>);
-            return <></>;
-        };
+    it('Should support reusing a custom hook in separate components', () => {
+        const TestComponent2 = TestComponentFactory.getTestComponent();
+        mountWithContext(
+            <>
+                <TestComponent />
+                <TestComponent2 />
+            </>
+        );
+    });
 
-        jest.spyOn(console, 'error');
-        // @ts-ignore
-        console.error.mockImplementation(() => { });
-        
-        expect.assertions(1);
-        try {
-            mountWithContext(<Component />);
-        } catch (e) {
-            expect(e).toBeTruthy();
+    it('Should not allow the second use of a hook to userwrite the renderer', () => {
+        const BAD_MESSAGE = 'You should not see me!';
+        const TestComponent2 = () => {
+            const [show] = usePopup('popup', () => (
+                <span>{BAD_MESSAGE}</span>
+            ));
+            return (
+                <button className="click-me" onClick={() => show('')}></button>
+            );
         }
-
-        // @ts-ignore
-        console.error.mockRestore();
+        const wrapper = mountWithContext(
+            <>
+                <TestComponent />
+                <TestComponent2 />
+            </>
+        );
+        wrapper.find('.click-me').simulate('click');
+        expect(wrapper.contains(BAD_MESSAGE)).toBeFalsy();
     });
 });

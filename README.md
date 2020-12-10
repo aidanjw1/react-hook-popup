@@ -11,7 +11,22 @@ npm install react-hook-popup
 ## Usage
 
 ### Basic Usage
-React Hook Popup is completely centered around one single, simple to use hook: `usePopup`.
+React Hook Popup is completely centered around one single, simple to use hook: `usePopup`. It can be imported like
+
+```javascript
+import { usePopup } from 'react-hook-popup';
+```
+
+Any component that uses this hook __must appear below the `<PopupProvider>` component__ in the tree. You probably want to wrap your whole application in this component.
+
+```javascript
+import { PopupProvider } from 'react-hook-popup';
+```
+```javascript
+<PopupProvider>
+    <YourApplication />
+</PopupProvider>
+```
 
 The `usePopup` hook takes two arguments: 
 - A `string` key that is unique to each popup.
