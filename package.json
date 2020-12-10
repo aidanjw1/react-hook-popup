@@ -1,6 +1,6 @@
 {
   "name": "react-hook-popup",
-  "version": "0.0.5-alpha",
+  "version": "0.0.5-alpha.1",
   "description": "Easily manage popups like alerts and modals in React with a single hook",
   "homepage": "https://github.com/aidanjw1/react-hook-popup#readme",
   "repository": "github:aidanjw1/react-hook-popup",
@@ -9,7 +9,9 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "build:local-install": "npm run build && rm -r node_modules",
-    "test": "jest"
+    "build:dry-run": "npm run build -- --noEmit",
+    "test": "npm run build:dry-run && jest",
+    "test:watch": "jest --watch"
   },
   "types": "dist/index.d.ts",
   "author": "Aidan White",

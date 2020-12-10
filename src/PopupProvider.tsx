@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
 import { PopupContext } from './PopupContext';
+import {
+    addPopup,
+    removePopup,
+    setPopupClosed,
+    setPopupMessage,
+    setPopupOpen,
+} from './utils/reducers';
 
 interface Props {
     children?: React.ReactNode;
@@ -8,52 +15,25 @@ interface Props {
 export const PopupProvider = ({ children }: Props): JSX.Element => {
     const [popups, setPopups] = useState<Record<string, Popup>>({});
 
-    const addPopup = (key: string, popupRenderer: PopupRenderer): void => {
-        setPopups((previous) => {
-            if (previous[key]) {
-                return previous;
-            }
-            return {
-                ...previous,
-                [key]: {
-                    renderer: popupRenderer,
-                    open: false,
-                },
-            };
-        });
+    const registerPopup = (key: string, popupRenderer: PopupRenderer): void => {
+        setPopups((previous) => addPopup(previous, key, popupRenderer));
     };
-    const removePopup = (key: string) => {
-        setPopups((previous) => {
-            const updatedPopups = { ...previous };
-            delete updatedPopups[key];
-            return updatedPopups;
-        });
+    const unRegisterPopup = (key: string) => {
+        setPopups((previous) => removePopup(previous, key));
     };
     const displayPopup = (key: string, message: string): void => {
-        setPopups((previous) => ({
-            ...previous,
-            [key]: {
-                ...popups[key],
-                open: true,
-                message,
-            },
-        }));
+        setPopups((previous) => setPopupOpen(previous, key));
+        setPopups((previous) => setPopupMessage(previous, key, message));
     };
     const closePopup = (key: string): void => {
-        setPopups((previous) => ({
-            ...previous,
-            [key]: {
-                ...popups[key],
-                open: false,
-            },
-        }));
+        setPopups((previous) => setPopupClosed(previous, key));
     };
 
     return (
         <PopupContext.Provider
             value={{
-                addPopup,
-                removePopup,
+                registerPopup,
+                unRegisterPopup,
                 displayPopup,
                 closePopup,
             }}
