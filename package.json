@@ -6,11 +6,10 @@
   "repository": "github:aidanjw1/react-hook-popup",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
-    "build:local-install": "npm run build && rm -r node_modules",
-    "build:dry-run": "npm run build -- --noEmit",
-    "test": "npm run build:dry-run && jest",
+    "build": "snowpack build && npm run build-cleanup",
+    "build-cleanup": "rm -r dist/web_modules && rm -r dist/sass && rm -r dist/__snowpack__",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run typecheck && jest",
     "test:watch": "jest --watch"
   },
   "types": "dist/index.d.ts",
@@ -18,6 +17,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
+    "@snowpack/plugin-sass": "^1.1.2",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.16",
@@ -32,6 +32,7 @@
     "prettier": "^2.2.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "snowpack": "^2.18.2",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
   },

@@ -1,2 +1,2 @@
 export { PopupProvider } from './PopupProvider';
-export { usePopup } from './usePopup';
+export { usePopup } from './hooks/usePopup';
