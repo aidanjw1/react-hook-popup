@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { consts } from './utils/consts';
 
 interface IPopupContext {
     registerPopup: (key: string, popupRenderer: PopupRenderer) => void;
@@ -9,15 +10,15 @@ interface IPopupContext {
 
 export const PopupContext = createContext<IPopupContext>({
     registerPopup: () => {
-        throw new Error('Something has gone wrong');
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
     unRegisterPopup: () => {
-        throw new Error('Something has gone wrong');
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
     displayPopup: () => {
-        throw new Error('Something has gone wrong');
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
     closePopup: () => {
-        throw new Error('Something has gone wrong');
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
 });
