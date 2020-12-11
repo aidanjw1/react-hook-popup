@@ -1,8 +1,8 @@
-name: Deploy to npm
+name: Deploy to npm (TEST)
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ test ]
 
 jobs:
   publish:
