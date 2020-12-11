@@ -4,6 +4,14 @@
   "description": "Easily manage popups like alerts and modals in React with a single hook",
   "homepage": "https://github.com/aidanjw1/react-hook-popup#readme",
   "repository": "github:aidanjw1/react-hook-popup",
+  "keywords": [
+    "react",
+    "react hooks",
+    "hooks",
+    "typescript",
+    "popups",
+    "alerts"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "build": "snowpack build && npm run build-cleanup",
@@ -32,7 +40,7 @@
     "prettier": "^2.2.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "snowpack": "^2.18.2",
+    "sass": "^1.30.0",
     "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
   },
