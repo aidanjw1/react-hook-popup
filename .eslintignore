@@ -1,5 +1,6 @@
 .eslintrc.js
 jest.config.js
+snowpack.config.js
 
 node_modules/
 dist/
