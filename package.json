@@ -1,6 +1,6 @@
 {
   "name": "react-hook-popup",
-  "version": "0.0.5-alpha.2",
+  "version": "0.0.5-alpha.3",
   "description": "Easily manage popups like alerts and modals in React with a single hook",
   "homepage": "https://github.com/aidanjw1/react-hook-popup#readme",
   "repository": "github:aidanjw1/react-hook-popup",
@@ -14,7 +14,9 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "snowpack build && npm run build-cleanup",
+    "build": "npm run build:ts && npm run build:sass",
+    "build:ts": "tsc",
+    "build:sass": "sass src/:dist/",
     "build-cleanup": "rm -r dist/web_modules && rm -r dist/sass && rm -r dist/__snowpack__",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && jest",
@@ -23,9 +25,8 @@
   "types": "dist/index.d.ts",
   "author": "Aidan White",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": { },
   "devDependencies": {
-    "@snowpack/plugin-sass": "^1.1.2",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.16",
@@ -45,6 +46,6 @@
     "typescript": "^4.1.2"
   },
   "peerDependencies": {
-    "react": "^16.14.0"
+    "react": "*"
   }
 }
