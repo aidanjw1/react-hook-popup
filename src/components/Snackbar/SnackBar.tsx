@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './snackbar.css';
 
 const DEFAULT_VARIANT = 'info';
-const DEFAULT_TIMEOUT = 4000;
+const DEFAULT_TIMEOUT = 5000;
 
 export interface SnackBarProps {
     handleClose: () => void;
