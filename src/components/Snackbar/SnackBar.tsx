@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './snackbar.scss';
+import './snackbar.css';
 
 const DEFAULT_VARIANT = 'info';
 const DEFAULT_TIMEOUT = 4000;
@@ -20,5 +20,9 @@ export const SnackBar = ({
     useEffect(() => {
         setTimeout(handleClose, timeout);
     }, []);
-    return <div className={`rhp-snackbar ${variant}`}>{children}</div>;
+    return (
+        <div className={`rhp-snackbar rhp-snackbar--${variant}`}>
+            {children}
+            <span onClick={handleClose} className="rhp-snackbar__close-button">&#10005;</span>
+        </div>);
 };

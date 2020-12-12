@@ -68,5 +68,6 @@
   },
   "exclude": [
     "test",
+    "dist"
   ],
 }

@@ -10,8 +10,12 @@ interface UseSnackBarOptions {
     timeout?: number;
 }
 
-export function useSnackBar({ key, variant, timeout }: UseSnackBarOptions = {}): PopupMethods {
-    return usePopup(key || DEFAULT_KEY, ({ message, handleClose }) => (
+export function useSnackBar({
+    key = DEFAULT_KEY,
+    variant,
+    timeout,
+}: UseSnackBarOptions = {}): PopupMethods {
+    return usePopup(`${key}-${variant}`, ({ message, handleClose }) => (
         <SnackBar variant={variant} timeout={timeout} handleClose={handleClose}>
             {message}
         </SnackBar>
