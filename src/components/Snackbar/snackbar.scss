@@ -1,0 +1,47 @@
+@import '../sass/variables';
+
+.rhp-snackbar {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    padding: 1rem;
+    min-width: 8rem;
+    box-shadow: 0 4px 10px rgba(#000, 0.6);
+    border-radius: 6px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+
+    &--error {
+        background-color: $color-error;
+    }
+
+    &--success {
+        background-color: $color-success;
+    }
+
+    &--info {
+        background-color: $color-info;
+        color: #000;
+    }
+
+    &--warning {
+        background-color: $color-warning;
+        color: #000;
+    }
+
+    &__close-button {
+        cursor: pointer;
+        margin-left: 1rem;
+        transition: all 200ms;
+
+        &:hover {
+            transform: scale(1.15);
+            font-weight: bold;
+        }
+
+        &:active {
+            transform: translateY(4px);
+        }
+    }
+}

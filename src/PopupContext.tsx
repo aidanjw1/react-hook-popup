@@ -1,23 +1,24 @@
 import { createContext } from 'react';
+import { consts } from './utils/consts';
 
 interface IPopupContext {
-    addPopup: (key: string, popupRenderer: PopupRenderer) => void;
-    removePopup: (key: string) => void;
-    displayPopup: (key: string, message: string) => void;
+    registerPopup: (key: string, popupRenderer: PopupRenderer) => void;
+    unRegisterPopup: (key: string) => void;
+    displayPopup: (key: string, message?: string) => void;
     closePopup: (key: string) => void;
 }
 
 export const PopupContext = createContext<IPopupContext>({
-    addPopup: () => {
-        throw new Error('Something has gone wrong');
+    registerPopup: () => {
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
-    removePopup: () => {
-        throw new Error('Something has gone wrong');
+    unRegisterPopup: () => {
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
     displayPopup: () => {
-        throw new Error('Something has gone wrong');
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
     closePopup: () => {
-        throw new Error('Something has gone wrong');
+        throw new Error(consts.CONTEXT_ERROR_MESSAGE);
     },
 });

@@ -1,5 +1,4 @@
 declare global {
-
     interface Popup {
         open: boolean;
         renderer: PopupRenderer;
