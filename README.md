@@ -8,9 +8,7 @@ React Hook Popup is a lightweight Javascript and Typescript library to easily ma
 npm install react-hook-popup
 ```
 
-## Usage
-
-### Basic Usage
+## Basic Usage
 React Hook Popup is completely centered around one single, simple to use hook: `usePopup`. It can be imported like
 
 ```javascript
@@ -32,7 +30,7 @@ The `usePopup` hook takes two arguments:
 - A `string` key that is unique to each popup.
 - A function that returns JSX to render the popup.
 
-The hook returns a function to show that popup, and a function to it.
+The hook __returns a function to show that popup__, and a function to it.
 
 ```javascript
 const [showPopup, hidePopup] = usePopup('alert', () => (
@@ -48,7 +46,7 @@ const [showPopup, hidePopup] = usePopup('alert', () => (
 
 In the above example, clicking the button to call `showPopup` will display the alert. That's it! However, React Hook Popup provides functionality for more advanced and dynamic popups which you can read about below.
 
-### Render Props
+## Render Props
 In a style similar to the [render props pattern](https://reactjs.org/docs/render-props.html), the function that renders the popup provides access to a few utility values and functions that can be used within the popup to make it more dynamic. These include
 
 - `message`: Used to display a dynamic content inside of the popup. This content is set via an argument to the `showPopup` function, as shown below.
@@ -69,3 +67,91 @@ const [showPopup, hidePopup] = usePopup('popup', ({ message, handleClose }) => (
     Show the modal
 </button>
 ```
+
+## Reusability
+Popups created through the `usePopup` hook can be easily defined once and shared accross the entire application by writing your own custom hooks. For example, you could create your own `useAlert` and import it everywhere to get access to that alert.
+```javascript
+// useAlert.jsx
+export function useAlert('alert', ({ message, handleClose }) => (
+    // ...your alert JSX
+));
+```
+```javascript
+// SomeComponent.jsx
+import { useAlert } from 'useAlert';
+
+export const SomeComponent = () => {
+    const [alert] = useAlert();
+    return (
+        <button onClick={() => alert('hello')}>Alert</button>
+    );
+};
+```
+```javascript
+// SomeOtherComponent.jsx
+import { useAlert } from 'useAlert';
+
+export const SomeOtherComponent = () => {
+    const [alert] = useAlert();
+    return (
+        <button onClick={() => alert('world!')}>Alert</button>
+    );
+};
+```
+
+## UI Component Library Integration
+Using `react-hook-popup` with any 3rd party component library, such as [material-ui](), [react-bootstrap](), or [semantic-ui](), is incredibly simple! Because it gives you the ability to render whatever JSX you want for the popup, you can simply render a 3rd party component. For example...
+```javascript
+import { Snackbar } from '@material-ui/core';
+import { usePopup } from 'react-hook-popup';
+```
+```javascript
+const [alert] = usePopup('snackbar-alert', ({ message, handleClose }), () => (
+    <Snackbar open autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+            This is a success message!
+        </Alert>
+    </Snackbar>
+));
+```
+_*Note that any UI components you use should be set to open, because `react-hook-popup` manages the display state for you._
+
+## Built In Popups
+`react-hook-popup` provides a couple of simple, lightweight built in popups that you can import quickly without having to define any JSX or styling yourslef. These popups can be imported as hooks, and include
+
+- `useSnackBar`
+    ```javascript
+    import { useSnackBar } from 'react-hook-popup';
+
+    // ...
+
+    const [showSnackbar] = useSnackBar();
+
+    // ...
+
+    showSnackBar('There was an error!');
+    ```
+    This hook can also take an optional options argument, which is an object including the fields
+
+    `key: string` : override the default internal key used by the hook if necessary
+
+    `variant: 'error' | success' | 'info' | 'warning'` : pre defined styling to apply to the snackbar (DEFAULT: `'info'`)
+
+    `timeout: number` : milliseconds to timeout and close the alert automatically. (DEFAULT: `5000`)
+
+---
+
+- `useAlert`
+    ```javascript
+    import { useAlert } from 'react-hook-popup';
+
+    // ...
+
+    const [alert] = useAlert();
+
+    // ...
+
+    alert('There was an error!');
+    ```
+
+---
