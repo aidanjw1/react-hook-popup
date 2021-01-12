@@ -98,5 +98,77 @@ describe('Popups', () => {
         );
         wrapper.find('.click-me').simulate('click');
         expect(wrapper.contains('Hello')).toBeTruthy();
-    })
+    });
+
+    it('Confirm promise should resolve to true when appropriate', (done) => {
+        expect.assertions(1);
+
+        const clickHandler = (confirm: () => Promise<boolean>) => () => {
+            const confirmed = confirm();
+            confirmed
+                .then((value) => {
+                    expect(value).toBe(true);
+                })
+                .catch(done)
+                .finally(done);
+        };
+
+        const TestComponent = () => {
+            const [confirm] = usePopup('confirm', ({ confirm, cancel }) => (
+                <div>
+                    <span>Are you sure?</span>
+                    <button onClick={cancel}>Cancel</button>
+                    <button className="confirm-click" onClick={confirm}>Confirm</button>
+                </div>
+            ));
+            return (
+                <button
+                    className="click-me"
+                    onClick={clickHandler(confirm)}
+                >
+                    Click Me
+                </button>
+            );
+        };
+
+        const wrapper = mountWithContext(<TestComponent />);
+        wrapper.find('.click-me').simulate('click');
+        wrapper.find('.confirm-click').simulate('click');
+    });
+
+    it('Confirm promise should resolve to false when appropriate', (done) => {
+        expect.assertions(1);
+
+        const clickHandler = (confirm: () => Promise<boolean>) => () => {
+            const confirmed = confirm();
+            confirmed
+                .then((value) => {
+                    expect(value).toBe(false);
+                })
+                .catch(done)
+                .finally(done);
+        };
+
+        const TestComponent = () => {
+            const [confirm] = usePopup('confirm', ({ confirm, cancel }) => (
+                <div>
+                    <span>Are you sure?</span>
+                    <button className="cancel-click" onClick={cancel}>Cancel</button>
+                    <button onClick={confirm}>Confirm</button>
+                </div>
+            ));
+            return (
+                <button
+                    className="click-me"
+                    onClick={clickHandler(confirm)}
+                >
+                    Click Me
+                </button>
+            );
+        };
+
+        const wrapper = mountWithContext(<TestComponent />);
+        wrapper.find('.click-me').simulate('click');
+        wrapper.find('.cancel-click').simulate('click');
+    });
 });
