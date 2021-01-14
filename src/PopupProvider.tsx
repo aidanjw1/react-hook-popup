@@ -50,8 +50,14 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
                         popup.renderer?.({
                             message: popup.message,
                             handleClose: () => closePopup(key),
-                            confirm: () => { popup.confirmResolver(true) },
-                            cancel: () => { popup.confirmResolver(false) },
+                            confirm: () => {
+                                popup.confirmResolver(true);
+                                closePopup(key);
+                            },
+                            cancel: () => {
+                                popup.confirmResolver(false);
+                                closePopup(key);
+                            },
                         }),
                         { key },
                     )
