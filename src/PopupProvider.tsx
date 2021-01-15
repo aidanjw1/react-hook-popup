@@ -15,8 +15,12 @@ interface Props {
 export const PopupProvider = ({ children }: Props): JSX.Element => {
     const [popups, setPopups] = useState<Record<string, Popup>>({});
 
-    const registerPopup = (key: string, popupRenderer: PopupRenderer): void => {
-        setPopups((previous) => addPopup(previous, key, popupRenderer));
+    const registerPopup = (
+        key: string,
+        popupRenderer: PopupRenderer,
+        confirmResolver: (value: boolean) => void,
+    ): void => {
+        setPopups((previous) => addPopup(previous, key, popupRenderer, confirmResolver));
     };
     const unRegisterPopup = (key: string) => {
         setPopups((previous) => removePopup(previous, key));
@@ -46,6 +50,14 @@ export const PopupProvider = ({ children }: Props): JSX.Element => {
                         popup.renderer?.({
                             message: popup.message,
                             handleClose: () => closePopup(key),
+                            confirm: () => {
+                                popup.confirmResolver(true);
+                                closePopup(key);
+                            },
+                            cancel: () => {
+                                popup.confirmResolver(false);
+                                closePopup(key);
+                            },
                         }),
                         { key },
                     )
