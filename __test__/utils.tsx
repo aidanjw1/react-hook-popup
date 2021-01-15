@@ -47,6 +47,7 @@ export class TestPopupFactory {
             open: open || false,
             renderer: renderer || this.getSimplePopupRenderer(),
             message,
+            confirmResolver: () => { console.log() },
         };
     }
 }
