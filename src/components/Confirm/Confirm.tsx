@@ -14,10 +14,10 @@ export const Confirm = ({ confirm, cancel, children }: ConfirmProps): JSX.Elemen
                 {children}
             </div>
             <div className="rhp-confirm__actions">
-                <button onClick={cancel} className="rhp-confirm__button--cancel">
+                <button onClick={cancel} className="rhp-confirm__button rhp-confirm__button--cancel">
                     Cancel
                 </button>
-                <button onClick={confirm} className="rhp-confirm__button--confirm">
+                <button onClick={confirm} className="rhp-confirm__button rhp-confirm__button--confirm">
                     Confirm
                 </button>
             </div>
