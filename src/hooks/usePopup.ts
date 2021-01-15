@@ -24,6 +24,7 @@ export function usePopup(key: string, popupRenderer: PopupRenderer): PopupMethod
         };
     }, []);
 
+    console.log(confirmPromise);
     return [
         (message?: string) => {
             displayPopup(key, message);
