@@ -8,10 +8,17 @@ export function usePopup(key: string, popupRenderer: PopupRenderer): PopupMethod
 
     const [confirmPromise, setConfirmPromise] = useState<Promise<boolean> | undefined>(undefined);
 
-    useEffect(() => {
+    function initializePopup(): void {
         setConfirmPromise(new Promise<boolean>((resolve) => {
-            registerPopup(key, popupRenderer, resolve);
+            registerPopup(key, popupRenderer, (val: boolean) => {
+                resolve(val);
+                initializePopup();
+            });
         }));
+    }
+
+    useEffect(() => {
+        initializePopup();
         return () => {
             unRegisterPopup(key);
         };
