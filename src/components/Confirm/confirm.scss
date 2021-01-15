@@ -1,0 +1,63 @@
+@import '../sass/variables';
+
+.rhp-alert {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 10px rgba(#000, 0.6);
+    border-radius: 4px;
+    padding: 1rem;
+    z-index: 10;
+    background-color: #fff;
+
+    min-width: 250px;
+    min-height: 100px;
+
+    &__actions {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 1rem;
+    }
+
+    &__button {
+        cursor: pointer;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+        transition: all 200ms;
+
+        &:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 6px rgba(#000, 0.6);
+        }
+
+        &:active {
+            transform: translateY(4px);
+        }
+
+        &--confirm {
+            background-color: #3F84E5;
+        }
+
+        &--cancel {
+            background-color: #a8a8a8;
+            color: black;
+        }
+    }
+
+    &__dimmer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+        opacity: 0.33;
+        backdrop-filter: blur(6px);
+    }
+}

@@ -2,7 +2,11 @@ import { createContext } from 'react';
 import { consts } from './utils/consts';
 
 interface IPopupContext {
-    registerPopup: (key: string, popupRenderer: PopupRenderer) => void;
+    registerPopup: (
+        key: string,
+        popupRenderer: PopupRenderer,
+        confirmResolver: (value: boolean) => void,
+    ) => void;
     unRegisterPopup: (key: string) => void;
     displayPopup: (key: string, message?: string) => void;
     closePopup: (key: string) => void;
