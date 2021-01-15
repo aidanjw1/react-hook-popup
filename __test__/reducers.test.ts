@@ -5,7 +5,7 @@ import {
     setPopupClosed,
     setPopupMessage,
 } from '../src/utils/reducers';
-import { TestPopupFactory } from './utils';
+import { mockConfirmResolver, TestPopupFactory } from './utils';
 
 describe('addPopup', () => {
     it('should add a new popup with the correct key', () => {
@@ -13,7 +13,7 @@ describe('addPopup', () => {
         const newPopupKey = 'new';
         const newRenderer = TestPopupFactory.getSimplePopupRenderer();
 
-        expect(addPopup(popups, newPopupKey, newRenderer)[newPopupKey]).toBeTruthy();
+        expect(addPopup(popups, newPopupKey, newRenderer, mockConfirmResolver)[newPopupKey]).toBeTruthy();
     });
 
     it('should add the correct renderer', () => {
@@ -21,7 +21,7 @@ describe('addPopup', () => {
         const newPopupKey = 'new';
         const newRenderer = TestPopupFactory.getSimplePopupRenderer();
 
-        expect(addPopup(popups, newPopupKey, newRenderer)[newPopupKey].renderer).toBe(newRenderer);
+        expect(addPopup(popups, newPopupKey, newRenderer, mockConfirmResolver)[newPopupKey].renderer).toBe(newRenderer);
     });
 
     it('should add a popup with the open field = false', () => {
@@ -29,7 +29,7 @@ describe('addPopup', () => {
         const newPopupKey = 'new';
         const newRenderer = TestPopupFactory.getSimplePopupRenderer();
 
-        expect(addPopup(popups, newPopupKey, newRenderer)[newPopupKey].open).toBe(false);
+        expect(addPopup(popups, newPopupKey, newRenderer, mockConfirmResolver)[newPopupKey].open).toBe(false);
     });
 
     it('should not overwrite the previous renderer when called with a duplicate key ', () => {
@@ -38,10 +38,10 @@ describe('addPopup', () => {
         const newRenderer1 = TestPopupFactory.getSimplePopupRenderer();
         const newRenderer2 = TestPopupFactory.getSimplePopupRenderer();
 
-        popups = addPopup(popups, newPopupKey, newRenderer1);
+        popups = addPopup(popups, newPopupKey, newRenderer1, mockConfirmResolver);
         expect(popups[newPopupKey].renderer).toBe(newRenderer1);
 
-        popups = addPopup(popups, newPopupKey, newRenderer2);
+        popups = addPopup(popups, newPopupKey, newRenderer2, mockConfirmResolver);
         expect(popups[newPopupKey].renderer).toBe(newRenderer1);
         expect(popups[newPopupKey].renderer).not.toBe(newRenderer2);
     });
