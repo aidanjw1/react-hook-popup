@@ -12,6 +12,7 @@ export function usePopup(key: string, popupRenderer: PopupRenderer): PopupMethod
         setConfirmPromise(new Promise<boolean>((resolve) => {
             registerPopup(key, popupRenderer, (val: boolean) => {
                 resolve(val);
+                unRegisterPopup(key);
                 initializePopup();
             });
         }));
@@ -24,7 +25,6 @@ export function usePopup(key: string, popupRenderer: PopupRenderer): PopupMethod
         };
     }, []);
 
-    console.log(confirmPromise);
     return [
         (message?: string) => {
             displayPopup(key, message);
