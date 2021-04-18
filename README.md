@@ -68,6 +68,27 @@ const [showPopup, hidePopup] = usePopup('popup', ({ message, handleClose }) => (
 </button>
 ```
 
+## Promise-Based Confirmations
+React hook popup allows you to easily show confirm popups in a similar fashion to the browser's built in `confirm` function - however, React hook gives you a promise that will resolve to a boolean based on the user's action in the confirmation popup. See the example below.
+
+```javascript
+const [confirm] = usePopup('confirm', ({ message, confirm, cancel }) => (
+    <div className="confirm-modal">
+        Are you sure?
+        <button onClick={confirm}>Confirm</button>
+        <button onClick={cancel}>Cancel</button>
+    </div>
+));
+```
+```javascript
+const confirmed = await confirm();
+if (confirmed) {
+    // do something...
+} else {
+    // do something else...
+}
+```
+
 ## Reusability
 Popups created through the `usePopup` hook can be easily defined once and shared accross the entire application by writing your own custom hooks. For example, you could create your own `useAlert` and import it everywhere to get access to that alert.
 ```javascript

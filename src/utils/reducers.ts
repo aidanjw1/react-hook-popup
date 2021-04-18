@@ -4,6 +4,7 @@ export function addPopup(
     popups: Record<string, Popup>,
     key: string,
     renderer: PopupRenderer,
+    confirmResolver: (value: boolean) => void,
 ): Record<string, Popup> {
     if (popups[key]) {
         return popups;
@@ -13,6 +14,7 @@ export function addPopup(
         [key]: {
             renderer,
             open: false,
+            confirmResolver,
         },
     };
 }

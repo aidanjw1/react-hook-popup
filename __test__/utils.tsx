@@ -37,6 +37,9 @@ interface GetPopupOptions {
     message?: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const mockConfirmResolver = (): void => { };
+
 export class TestPopupFactory {
     public static getSimplePopupRenderer(): PopupRenderer {
         return () => <span>Hello world</span>;
@@ -47,6 +50,7 @@ export class TestPopupFactory {
             open: open || false,
             renderer: renderer || this.getSimplePopupRenderer(),
             message,
+            confirmResolver: mockConfirmResolver,
         };
     }
 }
