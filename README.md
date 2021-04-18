@@ -1,6 +1,6 @@
 # React Hook Popup
 
-React Hook Popup is a lightweight Javascript and Typescript library to easily manage popups in React with a single hook. Display alerts, modals, snackbars, and more from anywhere in your React application without needing to manage your own open/closed state or crowd your components' JSX with popups.
+React Hook Popup is a lightweight Javascript and Typescript library to easily manage popups in React with a single hook. Display alerts, snackbars, modals, and more from anywhere in your React application without crowding your application logic with open/closed states.
 
 ## Installation
 
@@ -72,9 +72,11 @@ const [showPopup, hidePopup] = usePopup('popup', ({ message, handleClose }) => (
 Popups created through the `usePopup` hook can be easily defined once and shared accross the entire application by writing your own custom hooks. For example, you could create your own `useAlert` and import it everywhere to get access to that alert.
 ```javascript
 // useAlert.jsx
-export function useAlert('alert', ({ message, handleClose }) => (
-    // ...your alert JSX
-));
+export function useAlert() {
+    return usePopup('alert', ({ message, handleClose }) => (
+        // ...your alert JSX
+    );
+};
 ```
 ```javascript
 // SomeComponent.jsx
@@ -117,18 +119,14 @@ const [alert] = usePopup('snackbar-alert', ({ message, handleClose }), () => (
 _*Note that any UI components you use should be set to open, because `react-hook-popup` manages the display state for you._
 
 ## Built In Popups
-`react-hook-popup` provides a couple of simple, lightweight built in popups that you can import quickly without having to define any JSX or styling yourslef. These popups can be imported as hooks, and include
+`react-hook-popup` provides a couple of simple, lightweight built in popups that you can import quickly without having to define any JSX or styling yourself.
 
 - `useSnackBar`
     ```javascript
     import { useSnackBar } from 'react-hook-popup';
-
     // ...
-
     const [showSnackbar] = useSnackBar();
-
     // ...
-
     showSnackBar('There was an error!');
     ```
     This hook can also take an optional options argument, which is an object including the fields
@@ -144,14 +142,19 @@ _*Note that any UI components you use should be set to open, because `react-hook
 - `useAlert`
     ```javascript
     import { useAlert } from 'react-hook-popup';
-
     // ...
-
     const [alert] = useAlert();
-
     // ...
-
     alert('There was an error!');
     ```
 
 ---
+
+- `useConfirm`
+    ```javascript
+    import { useConfirm } from 'react-hook-popup'
+    // ...
+    const [confirm] = useConfirm();
+    // ...
+    const confirmed = await confirm('Are you sure?');
+    ```
